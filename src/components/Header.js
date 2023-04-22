@@ -7,7 +7,7 @@ const Header = () => {
           Hello <strong>Cecilia</strong>! 📝💡
         </h1>
         <h3 className="text-center mb-3">What do you have to do today?🤓</h3>
-        <hr />
+        <br />
     </header>
   );
 };
