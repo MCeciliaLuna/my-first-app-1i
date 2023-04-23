@@ -1,16 +1,32 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 const Tasks = () => {
-  const tasks = JSON.parse(localStorage.getItem('tasks'))
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+    return storedTasks ? storedTasks : [];
+  });
+
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+    setTasks(storedTasks ? storedTasks : []);
+  }, [tasks]);
+
+  const deleteAllTasks = () => {
+    localStorage.clear('tasks')
+  }
+
 
   return (
     <section className="mt-3">
+      {!tasks.length ? (
         <div className="card mt-3 mx-5 bg-warning">
           <div className="card-body text-light text-center">
             <h6>Todavía no has agregado ninguna tarea</h6>
           </div>
         </div>
-        <div className="card m-3 bg-info">
+        ) : (
+          tasks.map((task) => (
+        <div className="card m-3 bg-info" key={task.id}>
         <div className="card-body d-flex">
           <p className="d-flex align-items-center mx-2 mb-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" fill="currentColor" className="text-light bi bi-pin-angle-fill" viewBox="0 0 16 16">
@@ -19,8 +35,9 @@ const Tasks = () => {
           </p>
           <input
             type="text"
-            className="form-control border-0 bg-info mx-3"
+            className="form-control border-0 bg-info mx-3 fw-bold"
             id="exampleFormControlInput1"
+            defaultValue={task.task}
           />
           <div className="d-flex align-items-center">
           <input
@@ -37,6 +54,8 @@ const Tasks = () => {
           </div>
         </div>
       </div>
+      ))
+      )}
     </section>
   );
 };

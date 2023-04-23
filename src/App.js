@@ -1,5 +1,6 @@
 import "./App.css";
 import AddTask from "./components/AddTask";
+import ButtonDeleteAllTasks from "./components/ButtonDeleteAllTasks";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <AddTask />
       <Tasks />
+      <ButtonDeleteAllTasks />
       <Footer />
     </div>
   );
