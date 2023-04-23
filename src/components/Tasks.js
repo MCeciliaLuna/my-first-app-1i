@@ -11,9 +11,11 @@ const Tasks = () => {
     setTasks(storedTasks ? storedTasks : []);
   }, [tasks]);
 
-  const deleteAllTasks = () => {
-    localStorage.clear('tasks')
-  }
+  const deleteTask = (id) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  };
 
 
   return (
@@ -46,7 +48,7 @@ const Tasks = () => {
               value=""
               id="flexCheckIndeterminate"
             />
-            <button type="button" className="btn btn-danger p-2 ms-2 rounded-circle">
+            <button type="button" className="btn btn-danger p-2 ms-2 rounded-circle" onClick={(id)=>deleteTask(task.id)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" className="mt-0 bi bi-x-lg d-flex align-items-center" viewBox="0 0 16 16">
   <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
 </svg>
