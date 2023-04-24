@@ -1,8 +1,66 @@
-a{
+body {
+  margin: 0;
+  font-family: "Mali", cursive;
+  background-image: url(./assets/background-pattern.png);
+  background-repeat: repeat;
+  background-size: 250px;
+  background-color: whitesmoke;
+}
+
+code {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
   text-decoration: none;
   color: slateblue;
 }
 
-body{
-  background-color: whitesmoke;
+input:hover {
+  animation: bounce 0.5s;
+}
+.btn:hover {
+  animation: bounce 0.5s;
+}
+.form-check-input:hover {
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .subtitle {
+    font-size: 15px;
+  }
+  .icon-phone {
+    width: 20px;
+  }
+  .padding-phone {
+    margin: 0 !important;
+    padding: 0;
+    text-align: center;
+  }
+  .check-width {
+    padding: 10px !important;
+  }
+  .icon-delete-phone {
+    width: 10px;
+  }
+  .text-phone {
+    font-size: 15px;
+  }
 }
