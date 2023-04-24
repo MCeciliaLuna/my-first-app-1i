@@ -28,13 +28,25 @@ const TasksList = ({tasks, setTasks}) => {
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
 
+  const handleTaskChange = (id, newTask) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, task: newTask };
+      } else {
+        return task;
+      }
+    });
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  };
+
 
   return (
     <section className="mt-3">
       {!tasks.length ? (
         <div className="card mt-3 mx-5 bg-warning">
           <div className="card-body text-light text-center">
-            <h6>Todavía no has agregado ninguna tarea</h6>
+            <h6> To enjoy! You have no pending tasks</h6>
           </div>
         </div>
         ) : (
@@ -51,6 +63,7 @@ const TasksList = ({tasks, setTasks}) => {
             className={`form-control border-0 ${task.done === "finished" ? "bg-warning" : "bg-info"} mx-3 fw-bold`}
             id="exampleFormControlInput1"
             defaultValue={task.task}
+                onChange={(e) => handleTaskChange(task.id, e.target.value)}
           />
           <div className="d-flex align-items-center">
           <input
