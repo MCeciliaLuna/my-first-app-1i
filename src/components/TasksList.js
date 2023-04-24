@@ -1,18 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState} from "react";
 
-const Tasks = () => {
-  const [tasks, setTasks] = useState(() => {
-    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-    return storedTasks ? storedTasks : [];
-  });
+const TasksList = ({tasks, setTasks}) => {
+
+  const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
     setTasks(storedTasks ? storedTasks : []);
-  }, [tasks]);
+  }, [localStorage.getItem('tasks')]);
 
   const deleteTask = (id) => {
     const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  };
+
+  const handleCheckboxChange = (id) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        const done = task.done === "not yet" ? "finished" : "not yet";
+      return {...task, done};
+      } else {
+        return task;
+      }
+    });
     setTasks(updatedTasks);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
@@ -28,7 +39,7 @@ const Tasks = () => {
         </div>
         ) : (
           tasks.map((task) => (
-        <div className="card m-3 bg-info" key={task.id}>
+        <div className={`card m-3 ${task.done === "finished" ? "bg-warning" : "bg-info"}`} key={task.id}>
         <div className="card-body d-flex">
           <p className="d-flex align-items-center mx-2 mb-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" fill="currentColor" className="text-light bi bi-pin-angle-fill" viewBox="0 0 16 16">
@@ -37,7 +48,7 @@ const Tasks = () => {
           </p>
           <input
             type="text"
-            className="form-control border-0 bg-info mx-3 fw-bold"
+            className={`form-control border-0 ${task.done === "finished" ? "bg-warning" : "bg-info"} mx-3 fw-bold`}
             id="exampleFormControlInput1"
             defaultValue={task.task}
           />
@@ -47,6 +58,8 @@ const Tasks = () => {
               type="checkbox"
               value=""
               id="flexCheckIndeterminate"
+              onChange={() => handleCheckboxChange(task.id)}
+              checked={task.done === "finished"}
             />
             <button type="button" className="btn btn-danger p-2 ms-2 rounded-circle" onClick={(id)=>deleteTask(task.id)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" className="mt-0 bi bi-x-lg d-flex align-items-center" viewBox="0 0 16 16">
@@ -62,4 +75,4 @@ const Tasks = () => {
   );
 };
 
-export default Tasks;
+export default TasksList;

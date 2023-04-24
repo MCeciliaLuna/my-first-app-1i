@@ -1,16 +1,40 @@
 import "./App.css";
-import AddTask from "./components/AddTask";
+import InputAddTask from "./components/InputAddTask";
 import ButtonDeleteAllTasks from "./components/ButtonDeleteAllTasks";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Tasks from "./components/Tasks";
+import TasksList from "./components/TasksList";
+import { useForm } from "react-hook-form";
+import {useState} from 'react';
+import { nanoid } from 'nanoid'
 
 function App() {
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+    return storedTasks ? storedTasks : [];
+  });
+  
+  const { reset } = useForm()
+  
+  const onSubmit = (data) => {
+    const taskId = nanoid()
+    const task = {
+      id: taskId,
+      task: data.task,
+      done: "not yet",
+      bg: "bg-info"
+    };
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    reset()
+  }
+
   return (
     <div className="container">
       <Header />
-      <AddTask />
-      <Tasks />
+      <InputAddTask onSubmit={onSubmit} />
+      <TasksList tasks={tasks} setTasks={setTasks} reset={reset} />
       <ButtonDeleteAllTasks />
       <Footer />
     </div>

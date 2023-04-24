@@ -1,26 +1,18 @@
-import React from 'react';
+import React from "react";
 import { useForm } from "react-hook-form";
-import { nanoid } from 'nanoid'
 
 
-const AddTask = () => {
+const InputAddTask = ({onSubmit}) => {
 
-  const { register, handleSubmit, reset  } = useForm();
-  const onSubmit = (data) => {
-    const taskId = nanoid()
-    const task = {
-      id: taskId,
-      task: data.task
-    };
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.push(task);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+  const { register, handleSubmit, reset } = useForm();
+
+  const handleFormSubmit = (data) => {
+    onSubmit(data);
     reset()
-    console.log(tasks)
-  }
+  };
 
   return (
-      <form className="card m-3" onSubmit={handleSubmit(onSubmit)}>
+      <form className="card m-3" onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="card-body d-flex py-4">
           <p className="d-flex align-items-center mx-2 mb-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" fill="currentColor" className="text-info bi bi-pen-fill" viewBox="0 0 16 16">
@@ -46,4 +38,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default InputAddTask;
