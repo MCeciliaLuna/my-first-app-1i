@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="text-center mt-5">
+    <footer className="text-center mt-5 mb-5">
       <h6>
         By{" "}
         <a
