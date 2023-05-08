@@ -7,6 +7,7 @@ import TasksList from "./components/TasksList";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import { Bounce } from "react-awesome-reveal";
 
 function App() {
   const { reset } = useForm();
@@ -31,11 +32,13 @@ function App() {
 
   return (
     <div className="container">
+      <Bounce Fade cascade damping={0.1} triggerOnce="true">
       <Header />
       <InputAddTask onSubmit={onSubmit} />
       <TasksList tasks={tasks} setTasks={setTasks} reset={reset} />
       <ButtonDeleteAllTasks />
       <Footer />
+      </Bounce>
     </div>
   );
 }

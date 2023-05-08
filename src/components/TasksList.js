@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Bounce, AttentionSeeker } from "react-awesome-reveal";
 
 const TasksList = ({ tasks, setTasks }) => {
   const editTask = (id, newTask) => {
@@ -40,6 +41,7 @@ const TasksList = ({ tasks, setTasks }) => {
   return (
     <section className="mt-3">
       {!tasks.length ? (
+        <Bounce>
         <div className="card mt-3 mx-5 bg-warning border-0">
           <div className="card-body text-light text-center">
             <h6>
@@ -47,8 +49,10 @@ const TasksList = ({ tasks, setTasks }) => {
             </h6>
           </div>
         </div>
+        </Bounce>
       ) : (
         tasks.map((task) => (
+          <Bounce triggerOnce="true">
           <div
             className={`card m-3 ${
               task.done === "finished" ? "bg-warning" : "bg-info"
@@ -107,6 +111,7 @@ const TasksList = ({ tasks, setTasks }) => {
               </div>
             </div>
           </div>
+          </Bounce>
         ))
       )}
     </section>
